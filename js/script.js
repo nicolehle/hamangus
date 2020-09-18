@@ -45,8 +45,9 @@ monsterImage.src = "img/monster_small.png";
 
 var hero = {
   speed: 600,
-  x: 0,
-  y: 0
+  x: canvas.width / 1.95,
+  y: canvas.height / 7
+
 };
 
 var monster = {
@@ -76,8 +77,6 @@ addEventListener("keyup", function(e) {
 // Reset the game when the player catches a monster
 
 var reset = function() {
-  hero.x = canvas.width / 1.95;
-  hero.y = canvas.height / 10;
 
   // Throw the moster randomly on the screen
 
