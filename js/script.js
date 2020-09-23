@@ -1,4 +1,3 @@
-
 // Create the canvas
 
 var canvas = document.createElement("canvas");
@@ -44,7 +43,7 @@ monsterImage.src = "img/monster_small.png";
 // Game objects
 
 var hero = {
-  speed: 600,
+  speed: 1200,
   x: canvas.width / 1.95,
   y: canvas.height / 7
 
@@ -132,31 +131,41 @@ var render = function() {
     ctx.drawImage(monsterImage, monster.x, monster.y);
   }
 
-
   // Scores
 
   ctx.fillStyle = "rgb(250, 250, 250)";
   ctx.font = "24px Helvetica";
   ctx.textAlign = "left";
   ctx.textBaseLine = "top";
-  ctx.fillText( monsterCaught + " DocsaSeki caught", 32, 32);
+  ctx.fillText( monsterCaught + "마리 독사새끼들", 32, 32);
 }
+
+  // Clear
+
+var clear = function() {
+  bgReady = false;
+  heroReady = false;
+  moster = false;
+}
+
 
 
 
 // The main game loop
 
 var main = function() {
-  var now = Date.now();
-  var delta = now - then;
+  if(audioObj.play()){
+    var now = Date.now();
+    var delta = now - then;
 
-  update(delta / 1000);
-  render();
+    update(delta / 1000);
+    render();
 
-  then = now;
+    then = now;
 
-  // Request to do this again ASAP
-  requestAnimationFrame(main);
+    // Request to do this again ASAP
+    requestAnimationFrame(main);
+  }
 }
 
 
@@ -165,7 +174,52 @@ var w = window;
 requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
 
 
+// Finish game!
+function doSomething() {
+  clear();
+  scoreBox.style.display = "block";
+  startButton.style.display = "none";
+  scoreText.innerHTML = monsterCaught + " 마리 잡았다. <br> 독사 씌가아 말랐때요~~~ 우쨔우쨔 으허으허 예에!";
+  audioObj = null;
+};
+
+
 // Play game!
+var startButton = document.getElementById('start');
+var scoreBox = document.getElementById('score');
+var scoreText = document.getElementById('scoreText');
+console.log(scoreBox);
+var body = document.body;
 var then = Date.now();
-reset();
-main();
+let audioObj = new Audio('../simple-js-canvas-game/img/hamasong.mp3');
+
+
+startButton.addEventListener('click', function() {
+
+  scoreBox.style.display = "none";
+  setTimeout(() => {
+
+    // Create Timer
+    var timeLeft = 87;
+    var elem = document.getElementById('demo');
+    var timerId = setInterval(countdown, 1000);
+
+    function countdown() {
+      if (timeLeft == -1) {
+        clearTimeout(timerId);
+      } else {
+        elem.innerHTML = "남은시간: " + timeLeft + 's';
+        timeLeft--;
+      }
+    }
+
+    audioObj.play();
+    reset();
+    main();
+
+  }, 0);
+})
+
+audioObj.addEventListener('ended', () => {
+  doSomething();
+})
