@@ -43,7 +43,7 @@ monsterImage.src = "img/monster_small.png";
 // Game objects
 
 var hero = {
-  speed: 1200,
+  speed: 800,
   x: canvas.width / 1.95,
   y: canvas.height / 7
 
