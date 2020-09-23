@@ -176,7 +176,6 @@ requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame
 
 // Finish game!
 function doSomething() {
-  clear();
   scoreBox.style.display = "block";
   startButton.style.display = "none";
   scoreText.innerHTML = monsterCaught + " 마리 잡았다. <br> 독사 씌가아 말랐때요~~~ 우쨔우쨔 으허으허 예에!";
@@ -188,10 +187,9 @@ function doSomething() {
 var startButton = document.getElementById('start');
 var scoreBox = document.getElementById('score');
 var scoreText = document.getElementById('scoreText');
-console.log(scoreBox);
 var body = document.body;
 var then = Date.now();
-let audioObj = new Audio('../simple-js-canvas-game/img/hamasong.mp3');
+let audioObj = new Audio('../hamangus/img/hamasong.mp3');
 
 
 startButton.addEventListener('click', function() {
